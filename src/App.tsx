@@ -1,27 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import PenFactory from "./components/PenFactory";
+
+import theme from "./components/theme";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <PenFactory />
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <p></p>
+      <div className="App">
+        <header className="App-header"></header>
+        <PenFactory />
+      </div>
+    </MuiThemeProvider>
   );
 };
 
