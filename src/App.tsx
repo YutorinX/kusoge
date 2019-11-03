@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import PenFactory from "./components/PenFactory";
 
 const App: React.FC = () => {
   return (
@@ -19,8 +20,9 @@ const App: React.FC = () => {
           Learn React
         </a>
       </header>
+      <PenFactory />
     </div>
   );
-}
+};
 
 export default App;
