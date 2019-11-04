@@ -2,9 +2,13 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import Life from "./Life";
 
-const styles = () => ({
+//SCSSで作り直す
+const styles = (needsMargin?: boolean) => ({
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
+
+  margin: needsMargin ? "1% 0" : "inherit",
+  backgroundColor: "rgba(0,0,0, 0.2)"
 });
 
 const Status: React.FC = () => {
@@ -14,14 +18,25 @@ const Status: React.FC = () => {
 
   return (
     <section style={styles()}>
-      <div>
-        <Typography variant="h4" gutterBottom>
-          バイト代: {pay}円
+      <div style={styles(true)}>
+        <Typography variant="h4">
+          <span role="img" aria-label="money">
+            💰
+          </span>
+          : ￥{pay}
         </Typography>
-        <Typography variant="h4" gutterBottom>
-          単価: {unitPrice}円
+        <Typography variant="h4">
+          <span role="img" aria-label="unit price">
+            🖊
+          </span>
+          : ￥{unitPrice}
         </Typography>
-        <Typography variant="h4">ボーナス率: {chanceRate}％</Typography>
+        <Typography variant="h4">
+          <span role="img" aria-label="bonus parcentage">
+            🍆
+          </span>
+          : {chanceRate}％
+        </Typography>
       </div>
       <Life lifes={3} />
     </section>
