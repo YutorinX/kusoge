@@ -6,9 +6,7 @@ const styles = () => ({
   margin: "auto",
   display: "flex",
   justifyContent: "space-around",
-  "& button": {
-    width: "20%"
-  }
+  paddingBottom: 20
 });
 
 const Buttons: React.FC = () => {

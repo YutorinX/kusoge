@@ -23,7 +23,7 @@ const Status: React.FC = () => {
         </Typography>
         <Typography variant="h4">ボーナス率: {chanceRate}％</Typography>
       </div>
-      <Life />
+      <Life lifes={3} />
     </section>
   );
 };

@@ -13,16 +13,24 @@ const styles = () => ({
   }
 });
 
-const ControlButtons: React.FC = () => {
+type ControlButtonProps = {
+  buttons: {
+    LanePush: () => void;
+    Cap: () => void;
+    Flip: () => void;
+  };
+};
+
+const ControlButtons: React.FC<ControlButtonProps> = ({ buttons }) => {
   return (
     <section style={styles()}>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={buttons.LanePush}>
         ← <br /> SPACE
       </Button>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={buttons.Flip}>
         ←→ <br /> ←→
       </Button>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={buttons.Cap}>
         ↓ <br /> ↓
       </Button>
     </section>

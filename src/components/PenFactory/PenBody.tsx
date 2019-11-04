@@ -12,25 +12,29 @@ const styles = (transform: string) => ({
   transform: transform ? transform : "rotate(90deg)"
 });
 
-const PenBody: React.FC<{ stage: number }> = ({ stage }) => {
-  const trans = position(stage);
-  return (
-    <img src={penimg} style={styles(trans!.transform)} alt="penimage"></img>
-  );
+const PenBody: React.FC<{ stage: number; isPenFlipped: boolean }> = ({
+  stage,
+  isPenFlipped
+}) => {
+  const { transform } = position(stage, isPenFlipped);
+  return <img src={penimg} style={styles(transform)} alt="penimage"></img>;
 };
 
-function position(stage: number) {
+function position(stage: number, isPenFlipped: boolean): { transform: string } {
+  let flip = isPenFlipped ? -180 : 0;
   switch (stage) {
     case 0:
-      return { transform: "rotate(90deg)" };
+      return { transform: `rotate(${90 + flip}deg)` };
     case 1:
-      return { transform: "rotate(20deg) translate(-400px, 150px)" };
+      return { transform: `rotate(${20 + flip}deg) translate(-400px, 150px)` };
     case 2:
-      return { transform: "translateX(-805px)" };
+      return { transform: `translateX(-805px) rotate(${flip}deg)` };
     case 3:
-      return { transform: "translate(-1185px)" };
+      return { transform: `translate(-1185px) rotate(${flip}deg)` };
     case 4:
-      return { transform: "translate(-1500px)" };
+      return { transform: `translate(-1500px) rotate(${flip}deg)` };
+    default:
+      return { transform: `translateX(-805px) rotate(${flip}deg)` };
   }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Status from "./PenFactory/Status";
 import PenBody from "./PenFactory/PenBody";
 import PenCap from "./PenFactory/PenCap";
@@ -14,19 +14,53 @@ const styles = () => ({
 });
 
 const PenFactory: React.FC = () => {
-  const handlePush = () => {};
+  const [stage, setStage] = useState({ body: 0, cap: 0 });
+  const [flip, setFlip] = useState(false);
 
-  const handleCap = () => {};
+  const handleKeyDown = (e: any) => {
+    if (e.key === " ") handleLanePush();
+    else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      handleCap();
+      console.log("test");
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      handleFlip();
+      console.log("testflip");
+    }
+  };
 
-  const handleRotate = () => {};
+  const handleLanePush = () => {
+    setStage({
+      body: stage.body === 4 ? 0 : stage.body + 1,
+      cap:
+        stage.cap === 3
+          ? (stage.cap = 0)
+          : stage.cap !== 0
+          ? stage.cap + 1
+          : stage.cap
+    });
+  };
+
+  const handleCap = () => {
+    setStage({ body: stage.body, cap: stage.cap === 0 ? 1 : 0 });
+  };
+
+  const handleFlip = () => {
+    setFlip(!flip);
+  };
 
   return (
     <section>
-      <div style={styles()}>
+      <div style={styles()} onKeyPress={handleKeyDown} tabIndex={0}>
         <Status />
-        <PenCap />
-        <PenBody stage={2} />
-        <ControlButtons />
+        <PenCap stage={stage.cap} />
+        <PenBody stage={stage.body} isPenFlipped={flip} />
+        <ControlButtons
+          buttons={{
+            LanePush: handleLanePush,
+            Cap: handleCap,
+            Flip: handleFlip
+          }}
+        />
         <Counter />
       </div>
       <Buttons />
