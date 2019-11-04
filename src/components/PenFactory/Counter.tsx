@@ -5,7 +5,8 @@ const styles = () => ({
   bottom: 30,
   left: 0,
   right: 0,
-  margin: "0 auto"
+  margin: "-1% auto",
+  textAlign: "center" as "center"
 });
 
 const Counter: React.FC = () => {
