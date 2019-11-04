@@ -30,8 +30,9 @@ const PenFactory: React.FC = () => {
   };
 
   const handleLanePush = () => {
+    setBodyStage(bodyStage.map(i => (i === 4 ? 0 : i + 1)));
     setStage({
-      body: stage.body === 4 ? 0 : stage.body + 1,
+      body: 0,
       cap:
         stage.cap === 3
           ? (stage.cap = 0)
