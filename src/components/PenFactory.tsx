@@ -15,6 +15,7 @@ const styles = () => ({
 
 const PenFactory: React.FC = () => {
   const [stage, setStage] = useState({ body: 0, cap: 0 });
+  const [bodyStage, setBodyStage] = useState([0, 1, 2, 3, 4]);
   const [flip, setFlip] = useState(false);
 
   const handleKeyDown = (e: any) => {
@@ -53,7 +54,9 @@ const PenFactory: React.FC = () => {
       <div style={styles()} onKeyPress={handleKeyDown} tabIndex={0}>
         <Status />
         <PenCap stage={stage.cap} />
-        <PenBody stage={stage.body} isPenFlipped={flip} />
+        {bodyStage.map(num => (
+          <PenBody key={num} stage={bodyStage[num]} isPenFlipped={flip} />
+        ))}
         <ControlButtons
           buttons={{
             LanePush: handleLanePush,
