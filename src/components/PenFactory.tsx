@@ -16,34 +16,31 @@ const styles = () => ({
 const PenFactory: React.FC = () => {
   const [stage, setStage] = useState({ body: 0, cap: 0 });
   const [bodyStage, setBodyStage] = useState([0, 1, 2, 3, 4]);
+  const [capStage, setCapStage] = useState([0]);
   const [flip, setFlip] = useState(false);
 
   const handleKeyDown = (e: any) => {
-    if (e.key === " ") handleLanePush();
-    else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    if (e.key === " ") {
+      handleLanePush();
+    } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       handleCap();
-      console.log("test");
     } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       handleFlip();
-      console.log("testflip");
     }
   };
 
   const handleLanePush = () => {
     setBodyStage(bodyStage.map(i => (i === 4 ? 0 : i + 1)));
-    setStage({
-      body: 0,
-      cap:
-        stage.cap === 3
-          ? (stage.cap = 0)
-          : stage.cap !== 0
-          ? stage.cap + 1
-          : stage.cap
-    });
+    // capStage.findIndex(0)
+    setCapStage(capStage.map(i => (i === 0 ? 0 : i === 3 ? 0 : i + 1)));
+    console.log(capStage);
+    if (capStage.indexOf(0) === -1) {
+      setCapStage([...capStage, 0]);
+    }
   };
 
   const handleCap = () => {
-    setStage({ body: stage.body, cap: stage.cap === 0 ? 1 : 0 });
+    setCapStage(capStage.map(i => (i === 0 ? 1 : i === 1 ? 0 : i)));
   };
 
   const handleFlip = () => {
@@ -52,11 +49,14 @@ const PenFactory: React.FC = () => {
 
   return (
     <section>
-      <div style={styles()} onKeyPress={handleKeyDown} tabIndex={0}>
+      <div style={styles()} onKeyDown={handleKeyDown} tabIndex={0}>
         <Status />
-        <PenCap stage={stage.cap} />
-        {bodyStage.map(num => (
-          <PenBody key={num} stage={bodyStage[num]} isPenFlipped={flip} />
+
+        {capStage.map((num, index) => (
+          <PenCap key={index} stage={capStage[num]} />
+        ))}
+        {bodyStage.map((num, index) => (
+          <PenBody key={index} stage={bodyStage[num]} isPenFlipped={flip} />
         ))}
         <ControlButtons
           buttons={{
