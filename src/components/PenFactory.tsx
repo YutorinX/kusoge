@@ -68,7 +68,9 @@ const PenFactory: React.FC = () => {
   };
 
   const handleFlip = () => {
-    bodyStage.map(i => (i.b !== 2 ? i : { b: i.b, f: !i.f }));
+    setBodyStage(
+      bodyStage.map(i => (i.b !== 2 ? { b: i.b, f: i.f } : { b: i.b, f: !i.f }))
+    );
   };
 
   // 強化メニュー、保留
