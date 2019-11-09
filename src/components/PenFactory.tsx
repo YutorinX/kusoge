@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Status from "./PenFactory/Status";
-import PenBody from "./PenFactory/PenBody";
-import PenCap from "./PenFactory/PenCap";
+import PenBody from "./PenFactory/pen/PenBody";
+import PenCap from "./PenFactory/pen/PenCap";
 import Counter from "./PenFactory/Counter";
 import Buttons from "./PenFactory/Buttons";
 import ControlButtons from "./PenFactory/ControlButtons";
@@ -14,7 +14,6 @@ const styles = () => ({
 });
 
 const PenFactory: React.FC = () => {
-  const [stage, setStage] = useState({ body: 0, cap: 0 });
   const [bodyStage, setBodyStage] = useState([0, 1, 2, 3, 4]);
   const [capStage, setCapStage] = useState([0]);
   const [flip, setFlip] = useState(false);
