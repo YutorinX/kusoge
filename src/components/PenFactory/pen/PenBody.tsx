@@ -2,8 +2,7 @@ import React from "react";
 import penimg from "./img/pen.png";
 import "./PenBody.scss";
 
-const styles = (transform: string, display: string | undefined) => ({
-  display: display ? display : "block",
+const styles = (transform: string) => ({
   transform: transform ? transform : "rotate(90deg)"
 });
 
@@ -11,21 +10,18 @@ const PenBody: React.FC<{ stage: number; isPenFlipped: boolean }> = ({
   stage,
   isPenFlipped
 }) => {
-  const { transform, display } = position(stage, isPenFlipped);
+  const { transform } = position(stage, isPenFlipped);
   return (
     <img
       src={penimg}
-      style={styles(transform, display)}
+      style={styles(transform)}
       alt="penimage"
       className={`penBody pBody${stage}`}
     ></img>
   );
 };
 
-function position(
-  stage: number,
-  isPenFlipped: boolean
-): { transform: string; display?: string } {
+function position(stage: number, isPenFlipped: boolean): { transform: string } {
   const flip = isPenFlipped ? -180 : 0;
   switch (stage) {
     case 0:
