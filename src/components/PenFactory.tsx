@@ -14,9 +14,13 @@ const styles = () => ({
 });
 
 const PenFactory: React.FC = () => {
-  const [bodyStage, setBodyStage] = useState([0, 1, 2, 3, 4]);
+  // b: body, f: flip
+  const [bodyStage, setBodyStage] = useState([
+    { b: 0, f: false },
+    { b: 1, f: false },
+    { b: 2, f: false }
+  ]);
   const [capStage, setCapStage] = useState([0]);
-  const [flip, setFlip] = useState(false);
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -28,14 +32,35 @@ const PenFactory: React.FC = () => {
     }
   };
 
+  const pushPenBody = () => {
+    // 最後の本体を消す
+    const findDeadBody = bodyStage.findIndex(i => i.b === 4);
+    console.log(findDeadBody);
+
+    if (findDeadBody !== -1) bodyStage.splice(findDeadBody, 1);
+    // 本体を進める
+    setBodyStage(
+      bodyStage.map(i => {
+        return { b: i.b += 1, f: i.f };
+      })
+    );
+    //新しい本体を持ってくる
+    setBodyStage([...bodyStage, { b: 0, f: Math.random() >= 0.5 }]);
+  };
+
+  const pushCapBody = () => {
+    // 画面外のキャップを消去する
+    const findDeadCap = capStage.indexOf(3);
+    if (findDeadCap !== -1) capStage.splice(findDeadCap, 1);
+    // キャップを進める
+    setCapStage(capStage.map(i => (i === 0 ? 0 : i + 1)));
+    // 新しいキャップを持ってくる
+    if (capStage.indexOf(0) === -1) setCapStage([...capStage, 0]);
+  };
+
   const handleLanePush = () => {
-    setBodyStage(bodyStage.map(i => (i === 4 ? 0 : i + 1)));
-    // capStage.findIndex(0)
-    setCapStage(capStage.map(i => (i === 0 ? 0 : i === 3 ? 0 : i + 1)));
-    console.log(capStage);
-    if (capStage.indexOf(0) === -1) {
-      setCapStage([...capStage, 0]);
-    }
+    pushPenBody();
+    pushCapBody();
   };
 
   const handleCap = () => {
@@ -43,7 +68,14 @@ const PenFactory: React.FC = () => {
   };
 
   const handleFlip = () => {
-    setFlip(!flip);
+    bodyStage.map(i => (i.b !== 2 ? i : { b: i.b, f: !i.f }));
+  };
+
+  // 強化メニュー、保留
+  const isEnoughMoney = {
+    unitPrice: false,
+    bonus: false,
+    life: false
   };
 
   return (
@@ -52,10 +84,10 @@ const PenFactory: React.FC = () => {
         <Status />
 
         {capStage.map((num, index) => (
-          <PenCap key={index} stage={capStage[num]} />
+          <PenCap key={index} stage={num} />
         ))}
         {bodyStage.map((num, index) => (
-          <PenBody key={index} stage={bodyStage[num]} isPenFlipped={flip} />
+          <PenBody key={index} stage={num.b} isPenFlipped={num.f} />
         ))}
         <ControlButtons
           buttons={{
@@ -66,7 +98,7 @@ const PenFactory: React.FC = () => {
         />
         <Counter />
       </div>
-      <Buttons />
+      <Buttons isEnoughMoney={isEnoughMoney} />
     </section>
   );
 };
