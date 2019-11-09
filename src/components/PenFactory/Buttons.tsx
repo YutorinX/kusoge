@@ -9,13 +9,7 @@ const styles = () => ({
   paddingBottom: 20
 });
 
-const Buttons: React.FC = () => {
-  const isEnoughMoney = {
-    unitPrice: true,
-    bonus: false,
-    life: true
-  };
-
+const Buttons: React.FC = ({ isEnoughMoney }) => {
   return (
     <section style={styles()}>
       <Button
@@ -24,23 +18,25 @@ const Buttons: React.FC = () => {
       >
         単価上げ
         <br />
-        100円
+        未実装
       </Button>
+
       <Button
         variant="contained"
         color={isEnoughMoney.bonus ? "primary" : "default"}
       >
         ボーナス率上昇
         <br />
-        100円
+        未実装
       </Button>
+
       <Button
         variant="contained"
         color={isEnoughMoney.life ? "primary" : "default"}
       >
         ライフ追加
         <br />
-        100円
+        未実装
       </Button>
     </section>
   );
