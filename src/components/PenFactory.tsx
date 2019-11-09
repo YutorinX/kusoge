@@ -21,6 +21,7 @@ const PenFactory: React.FC = () => {
     { b: 2, f: false }
   ]);
   const [capStage, setCapStage] = useState([0]);
+  const [count, setCount] = useState(0);
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -29,6 +30,16 @@ const PenFactory: React.FC = () => {
       handleCap();
     } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       handleFlip();
+    }
+  };
+
+  const validatePen = () => {
+    const currentPen = bodyStage.findIndex(i => i.b === 2);
+    const isCapped = capStage.indexOf(1);
+    if (bodyStage[currentPen].f === false && isCapped !== -1) {
+      setCount(count + 1);
+    } else {
+      //ライフ減少
     }
   };
 
@@ -59,6 +70,7 @@ const PenFactory: React.FC = () => {
   };
 
   const handleLanePush = () => {
+    validatePen();
     pushPenBody();
     pushCapBody();
   };
@@ -98,7 +110,7 @@ const PenFactory: React.FC = () => {
             Flip: handleFlip
           }}
         />
-        <Counter />
+        <Counter count={count} />
       </div>
       <Buttons isEnoughMoney={isEnoughMoney} />
     </section>
