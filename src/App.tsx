@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import PenFactory from "./components/PenFactory";
 

@@ -16,7 +16,12 @@ const styles = (transform: string, right: string | undefined) => ({
 const PenCap: React.FC<{ stage: number }> = ({ stage }) => {
   const { transform, right } = position(stage);
   return (
-    <img src={capimg} style={styles(transform, right)} alt="capimage"></img>
+    <img
+      src={capimg}
+      style={styles(transform, right)}
+      alt="capimage"
+      className="pencap"
+    ></img>
   );
 };
 
