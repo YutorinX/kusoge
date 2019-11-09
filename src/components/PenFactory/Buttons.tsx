@@ -9,7 +9,19 @@ const styles = () => ({
   paddingBottom: 20
 });
 
-const Buttons: React.FC = ({ isEnoughMoney }) => {
+type isEnoughMoney = {
+  unitPrice: boolean;
+  bonus: boolean;
+  life: boolean;
+};
+
+type props = {
+  isEnoughMoney: isEnoughMoney;
+};
+
+const Buttons: React.FC<props> = props => {
+  const isEnoughMoney = props.isEnoughMoney;
+
   return (
     <section style={styles()}>
       <Button
