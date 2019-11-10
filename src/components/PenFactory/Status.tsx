@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import Life from "./Life";
+import { getThemeProps } from "@material-ui/styles";
 
 //SCSSで作り直す
 const styles = (needsMargin?: boolean) => ({
@@ -11,8 +12,12 @@ const styles = (needsMargin?: boolean) => ({
   backgroundColor: "rgba(0,0,0, 0.2)"
 });
 
-const Status: React.FC = () => {
-  const pay: number = 0.1;
+type props = {
+  money: number;
+  lives: number;
+};
+
+const Status: React.FC<props> = ({ money, lives }) => {
   const unitPrice: number = 0.5;
   const chanceRate: number = 0.1;
 
@@ -23,7 +28,7 @@ const Status: React.FC = () => {
           <span role="img" aria-label="money">
             💰
           </span>
-          : ￥{pay}
+          : ￥{money}
         </Typography>
         <Typography variant="h4">
           <span role="img" aria-label="unit price">
@@ -38,7 +43,7 @@ const Status: React.FC = () => {
           : {chanceRate}％
         </Typography>
       </div>
-      <Life lifes={3} />
+      <Life lives={lives} />
     </section>
   );
 };

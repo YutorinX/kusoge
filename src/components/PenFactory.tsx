@@ -14,7 +14,7 @@ const styles = () => ({
 });
 
 const PenFactory: React.FC = () => {
-  // b: body, f: flip
+  // states b: body, f: flip
   const [bodyStage, setBodyStage] = useState([
     { b: 0, f: false },
     { b: 1, f: false },
@@ -22,6 +22,8 @@ const PenFactory: React.FC = () => {
   ]);
   const [capStage, setCapStage] = useState([0]);
   const [count, setCount] = useState(0);
+  const [money, setMoney] = useState(0);
+  const [lives, setLife] = useState(3);
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -38,8 +40,9 @@ const PenFactory: React.FC = () => {
     const isCapped = capStage.indexOf(1);
     if (bodyStage[currentPen].f === false && isCapped !== -1) {
       setCount(count + 1);
+      //TODO: 💰増やす
     } else {
-      //ライフ減少
+      setLife(lives - 1);
     }
   };
 
@@ -79,6 +82,7 @@ const PenFactory: React.FC = () => {
     setCapStage(capStage.map(i => (i === 0 ? 1 : i === 1 ? 0 : i)));
   };
 
+  //TODO: キャップ状態で回転させない
   const handleFlip = () => {
     setBodyStage(
       bodyStage.map(i => (i.b !== 2 ? { b: i.b, f: i.f } : { b: i.b, f: !i.f }))
@@ -95,7 +99,7 @@ const PenFactory: React.FC = () => {
   return (
     <section>
       <div style={styles()} onKeyDown={handleKeyDown} tabIndex={0}>
-        <Status />
+        <Status money={money} lives={lives} />
 
         {capStage.map((num, index) => (
           <PenCap key={index} stage={num} />
