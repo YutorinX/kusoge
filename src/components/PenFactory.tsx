@@ -24,6 +24,7 @@ const PenFactory: React.FC = () => {
   const [count, setCount] = useState(0);
   const [money, setMoney] = useState(0);
   const [lives, setLife] = useState(3);
+  const [unitprice, setUnitprice] = useState(0.5);
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -36,11 +37,13 @@ const PenFactory: React.FC = () => {
   };
 
   const validatePen = () => {
+    // ちゃんとキャップがついているか判断
     const currentPen = bodyStage.findIndex(i => i.b === 2);
     const isCapped = capStage.indexOf(1);
+
     if (bodyStage[currentPen].f === false && isCapped !== -1) {
       setCount(count + 1);
-      //TODO: 💰増やす
+      setMoney(money + unitprice);
     } else {
       setLife(lives - 1);
     }
