@@ -1,9 +1,8 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import Life from "./Life";
-import { getThemeProps } from "@material-ui/styles";
 
-//SCSSで作り直す
+//TODO: SCSSで作り直す
 const styles = (needsMargin?: boolean) => ({
   display: "flex",
   justifyContent: "space-between",
