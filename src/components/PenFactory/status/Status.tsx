@@ -1,15 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import Life from "./Life";
-
-//TODO: SCSSで作り直す
-const styles = (needsMargin?: boolean) => ({
-  display: "flex",
-  justifyContent: "space-between",
-
-  margin: needsMargin ? "1% 0" : "inherit",
-  backgroundColor: "rgba(0,0,0, 0.2)"
-});
+import "./Status.scss";
 
 type props = {
   money: number;
@@ -18,21 +10,23 @@ type props = {
   chanceRate: number;
 };
 
+//TODO: 更新されたら色が一瞬変わるようにする
+
 const Status: React.FC<props> = ({ money, lives, unitPrice, chanceRate }) => {
   return (
-    <section style={styles()}>
-      <div style={styles(true)}>
+    <section className="status">
+      <div className="statuses">
         <Typography variant="h4">
           <span role="img" aria-label="money">
             💰
           </span>
-          : ￥{money}
+          :￥{money}
         </Typography>
         <Typography variant="h4">
           <span role="img" aria-label="unit price">
             🖊
           </span>
-          : ￥{unitPrice}
+          :￥{unitPrice}
         </Typography>
         <Typography variant="h4">
           <span role="img" aria-label="bonus parcentage">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Status from "./PenFactory/Status";
+import Status from "./PenFactory/status/Status";
 import PenBody from "./PenFactory/pen/PenBody";
 import PenCap from "./PenFactory/pen/PenCap";
 import Counter from "./PenFactory/Counter";
@@ -65,7 +65,7 @@ const PenFactory: React.FC = () => {
       })
     );
     //新しい本体を持ってくる
-    setBodyStage([...bodyStage, { b: 0, f: Math.random() >= 0.5 }]);
+    setBodyStage([...bodyStage, { b: 0, f: Math.random() >= 0.4 }]);
   };
 
   const pushCapBody = () => {
@@ -89,11 +89,13 @@ const PenFactory: React.FC = () => {
   };
 
   const handleCap = () => {
+    //キャップのつけ外し
     setCapStage(capStage.map(i => (i === 0 ? 1 : i === 1 ? 0 : i)));
   };
 
   //TODO: キャップ状態で回転させない
   const handleFlip = () => {
+    //くるくる回る
     setBodyStage(
       bodyStage.map(i => (i.b !== 2 ? { b: i.b, f: i.f } : { b: i.b, f: !i.f }))
     );
@@ -117,10 +119,10 @@ const PenFactory: React.FC = () => {
         />
 
         {capStage.map((num, index) => (
-          <PenCap key={index} stage={num} />
+          <PenCap key={index + count} stage={num} />
         ))}
         {bodyStage.map((num, index) => (
-          <PenBody key={index} stage={num.b} isPenFlipped={num.f} />
+          <PenBody key={index + count} stage={num.b} isPenFlipped={num.f} />
         ))}
         <ControlButtons
           buttons={{
