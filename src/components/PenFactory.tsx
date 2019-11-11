@@ -28,6 +28,9 @@ const PenFactory: React.FC = () => {
   const [lives, setLife] = useState(3);
   const [unitPrice, setUnitPrice] = useState(0.5);
   const [chanceRate, setChanceRate] = useState(1);
+  const costs = {
+    life: 100
+  };
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -53,10 +56,10 @@ const PenFactory: React.FC = () => {
     }
   };
 
+  //TODO: setを一つだけ使おう
   const pushPenBody = () => {
     // 最後の本体を消す
     const findDeadBody = bodyStage.findIndex(i => i.b === 4);
-
     if (findDeadBody !== -1) bodyStage.splice(findDeadBody, 1);
     // 本体を進める
     setBodyStage(
@@ -109,11 +112,22 @@ const PenFactory: React.FC = () => {
     }
   };
 
+  const handleIncreaseLife = () => {
+    const cost = costs.life;
+    if (money < cost) return;
+    setMoney(money - cost);
+    setLife(lives + 1);
+  };
+
+  const buttonMethods = {
+    increaseLife: handleIncreaseLife
+  };
+
   // 強化メニュー、保留
   const isEnoughMoney = {
     unitPrice: false,
     bonus: false,
-    life: false
+    life: money >= costs.life
   };
 
   return (
@@ -141,7 +155,11 @@ const PenFactory: React.FC = () => {
         />
         <Counter count={count} />
       </div>
-      <Buttons isEnoughMoney={isEnoughMoney} />
+      <Buttons
+        isEnoughMoney={isEnoughMoney}
+        buttonMethods={buttonMethods}
+        costs={costs}
+      />
     </section>
   );
 };

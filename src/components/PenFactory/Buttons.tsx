@@ -15,13 +15,19 @@ type isEnoughMoney = {
   life: boolean;
 };
 
-type props = {
-  isEnoughMoney: isEnoughMoney;
+type buttonMethods = {
+  increaseLife: () => void;
 };
 
-const Buttons: React.FC<props> = props => {
-  const isEnoughMoney = props.isEnoughMoney;
+type props = {
+  isEnoughMoney: isEnoughMoney;
+  buttonMethods: buttonMethods;
+  costs: {
+    life: number;
+  };
+};
 
+const Buttons: React.FC<props> = ({ isEnoughMoney, buttonMethods, costs }) => {
   return (
     <section style={styles()}>
       <Button
@@ -45,10 +51,11 @@ const Buttons: React.FC<props> = props => {
       <Button
         variant="contained"
         color={isEnoughMoney.life ? "primary" : "default"}
+        onClick={buttonMethods.increaseLife}
       >
         ライフ追加
         <br />
-        未実装
+        {costs.life}円
       </Button>
     </section>
   );
