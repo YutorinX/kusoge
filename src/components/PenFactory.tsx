@@ -6,7 +6,7 @@ import Counter from "./PenFactory/Counter";
 import Buttons from "./PenFactory/Buttons";
 import ControlButtons from "./PenFactory/ControlButtons";
 
-// TODO: 効果音とボーナス
+// TODO: 効果音、エフェクト関連（ボーナス、加算、ゲームオーバー）
 
 const styles = () => ({
   position: "relative" as "relative",
@@ -47,6 +47,7 @@ const PenFactory: React.FC = () => {
     if (bodyStage[currentPen].f === false && isCapped !== -1) {
       setCount(count + 1);
       setMoney(money + unitPrice);
+      validateBonus();
     } else {
       setLife(lives - 1);
     }
@@ -99,6 +100,14 @@ const PenFactory: React.FC = () => {
     setBodyStage(
       bodyStage.map(i => (i.b !== 2 ? { b: i.b, f: i.f } : { b: i.b, f: !i.f }))
     );
+  };
+
+  const validateBonus = () => {
+    const rollBonus = Math.floor(Math.random() * 101) <= chanceRate;
+    if (rollBonus) {
+      const bonus = Math.floor(Math.random() * 50 + 20) * unitPrice;
+      setMoney(money + bonus);
+    }
   };
 
   // 強化メニュー、保留
