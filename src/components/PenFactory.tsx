@@ -56,7 +56,6 @@ const PenFactory: React.FC = () => {
   const pushPenBody = () => {
     // 最後の本体を消す
     const findDeadBody = bodyStage.findIndex(i => i.b === 4);
-    console.log(findDeadBody);
 
     if (findDeadBody !== -1) bodyStage.splice(findDeadBody, 1);
     // 本体を進める
@@ -69,14 +68,14 @@ const PenFactory: React.FC = () => {
     setBodyStage([...bodyStage, { b: 0, f: Math.random() >= 0.4 }]);
   };
 
-  const pushCapBody = () => {
+  const pushPenCap = () => {
     // 画面外のキャップを消去する
-    const findDeadCap = capStage.indexOf(3);
-    if (findDeadCap !== -1) capStage.splice(findDeadCap, 1);
+    const killDeadCapArray = capStage.filter(i => i !== 3);
     // キャップを進める
-    setCapStage(capStage.map(i => (i === 0 ? 0 : i + 1)));
+    const pushedCapArray = killDeadCapArray.map(i => (i === 0 ? 0 : i + 1));
     // 新しいキャップを持ってくる
-    if (capStage.indexOf(0) === -1) setCapStage([...capStage, 0]);
+    if (capStage.indexOf(0) === -1) pushedCapArray.push(0);
+    setCapStage(pushedCapArray);
   };
 
   const handleLanePush = () => {
@@ -86,7 +85,7 @@ const PenFactory: React.FC = () => {
     }
     validatePen();
     pushPenBody();
-    pushCapBody();
+    pushPenCap();
   };
 
   const handleCap = () => {
