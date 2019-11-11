@@ -14,12 +14,11 @@ const styles = (needsMargin?: boolean) => ({
 type props = {
   money: number;
   lives: number;
+  unitPrice: number;
+  chanceRate: number;
 };
 
-const Status: React.FC<props> = ({ money, lives }) => {
-  const unitPrice: number = 0.5;
-  const chanceRate: number = 0.1;
-
+const Status: React.FC<props> = ({ money, lives, unitPrice, chanceRate }) => {
   return (
     <section style={styles()}>
       <div style={styles(true)}>

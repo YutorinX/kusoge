@@ -6,6 +6,8 @@ import Counter from "./PenFactory/Counter";
 import Buttons from "./PenFactory/Buttons";
 import ControlButtons from "./PenFactory/ControlButtons";
 
+// TODO: 効果音とボーナス
+
 const styles = () => ({
   position: "relative" as "relative",
   maxWidth: 1152,
@@ -24,7 +26,8 @@ const PenFactory: React.FC = () => {
   const [count, setCount] = useState(0);
   const [money, setMoney] = useState(0);
   const [lives, setLife] = useState(3);
-  const [unitprice, setUnitprice] = useState(0.5);
+  const [unitPrice, setUnitPrice] = useState(0.5);
+  const [chanceRate, setChanceRate] = useState(1);
 
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
@@ -43,7 +46,7 @@ const PenFactory: React.FC = () => {
 
     if (bodyStage[currentPen].f === false && isCapped !== -1) {
       setCount(count + 1);
-      setMoney(money + unitprice);
+      setMoney(money + unitPrice);
     } else {
       setLife(lives - 1);
     }
@@ -76,6 +79,10 @@ const PenFactory: React.FC = () => {
   };
 
   const handleLanePush = () => {
+    if (lives <= 0) {
+      console.log("GAME OVER");
+      return;
+    }
     validatePen();
     pushPenBody();
     pushCapBody();
@@ -102,7 +109,12 @@ const PenFactory: React.FC = () => {
   return (
     <section>
       <div style={styles()} onKeyDown={handleKeyDown} tabIndex={0}>
-        <Status money={money} lives={lives} />
+        <Status
+          money={money}
+          lives={lives}
+          chanceRate={chanceRate}
+          unitPrice={unitPrice}
+        />
 
         {capStage.map((num, index) => (
           <PenCap key={index} stage={num} />
