@@ -142,7 +142,6 @@ const PenFactory: React.FC = () => {
     life: handleIncreaseLife
   };
 
-  // 強化メニュー、保留
   const isEnoughMoney = {
     unitPrice: money >= costs.unit,
     bonus: money >= costs.bonusRate,
