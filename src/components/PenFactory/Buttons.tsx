@@ -16,42 +16,48 @@ type isEnoughMoney = {
 };
 
 type buttonMethods = {
-  increaseLife: () => void;
+  unitPrice: () => void;
+  bonusRate: () => void;
+  life: () => void;
 };
 
 type props = {
   isEnoughMoney: isEnoughMoney;
   buttonMethods: buttonMethods;
   costs: {
+    unit: number;
+    bonusRate: number;
     life: number;
   };
 };
-
+//TODO: SCSSでリファクタ
 const Buttons: React.FC<props> = ({ isEnoughMoney, buttonMethods, costs }) => {
   return (
     <section style={styles()}>
       <Button
         variant="contained"
         color={isEnoughMoney.unitPrice ? "primary" : "default"}
+        onClick={buttonMethods.unitPrice}
       >
         単価上げ
         <br />
-        未実装
+        {costs.unit}円
       </Button>
 
       <Button
         variant="contained"
         color={isEnoughMoney.bonus ? "primary" : "default"}
+        onClick={buttonMethods.bonusRate}
       >
         ボーナス率上昇
         <br />
-        未実装
+        {costs.bonusRate}円
       </Button>
 
       <Button
         variant="contained"
         color={isEnoughMoney.life ? "primary" : "default"}
-        onClick={buttonMethods.increaseLife}
+        onClick={buttonMethods.life}
       >
         ライフ追加
         <br />

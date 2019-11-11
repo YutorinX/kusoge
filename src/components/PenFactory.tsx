@@ -26,10 +26,12 @@ const PenFactory: React.FC = () => {
   const [count, setCount] = useState(0);
   const [money, setMoney] = useState(0);
   const [lives, setLife] = useState(3);
-  const [unitPrice, setUnitPrice] = useState(0.5);
-  const [chanceRate, setChanceRate] = useState(1);
+  const [unitPrice, setUnitPrice] = useState(1);
+  const [bonusRate, setBonusRate] = useState(1);
   const costs = {
-    life: 100
+    unit: 100,
+    bonusRate: 200,
+    life: 50
   };
 
   const handleKeyDown = (e: any) => {
@@ -37,7 +39,8 @@ const PenFactory: React.FC = () => {
       handleLanePush();
     } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       handleCap();
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    } else if (e.key === "ArrowLeft") {
+      // || e.key === "ArrowRight"
       handleFlip();
     }
   };
@@ -105,11 +108,25 @@ const PenFactory: React.FC = () => {
   };
 
   const validateBonus = () => {
-    const rollBonus = Math.floor(Math.random() * 101) <= chanceRate;
+    const rollBonus = Math.floor(Math.random() * 101) <= bonusRate;
     if (rollBonus) {
       const bonus = Math.floor(Math.random() * 50 + 20) * unitPrice;
       setMoney(money + bonus);
     }
+  };
+
+  const handleIncreaseUnitPrice = () => {
+    const cost = costs.unit;
+    if (money < cost) return;
+    setMoney(money - cost);
+    setUnitPrice(unitPrice + 1);
+  };
+
+  const handleIncreaseBonusRate = () => {
+    const cost = costs.bonusRate;
+    if (money < cost) return;
+    setMoney(money - cost);
+    setBonusRate(bonusRate + 1);
   };
 
   const handleIncreaseLife = () => {
@@ -120,13 +137,15 @@ const PenFactory: React.FC = () => {
   };
 
   const buttonMethods = {
-    increaseLife: handleIncreaseLife
+    unitPrice: handleIncreaseUnitPrice,
+    bonusRate: handleIncreaseBonusRate,
+    life: handleIncreaseLife
   };
 
   // 強化メニュー、保留
   const isEnoughMoney = {
-    unitPrice: false,
-    bonus: false,
+    unitPrice: money >= costs.unit,
+    bonus: money >= costs.bonusRate,
     life: money >= costs.life
   };
 
@@ -136,7 +155,7 @@ const PenFactory: React.FC = () => {
         <Status
           money={money}
           lives={lives}
-          chanceRate={chanceRate}
+          chanceRate={bonusRate}
           unitPrice={unitPrice}
         />
 
