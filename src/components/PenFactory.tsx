@@ -35,7 +35,11 @@ const PenFactory: React.FC = () => {
   };
 
   const initGame = () => {
-    setBodyStage([{ b: 0, f: false }, { b: 1, f: false }, { b: 2, f: false }]);
+    setBodyStage([
+      { b: 0, f: false },
+      { b: 1, f: false },
+      { b: 2, f: false }
+    ]);
     setCapStage([0]);
     setCount(0);
     setMoney(0);
@@ -69,19 +73,17 @@ const PenFactory: React.FC = () => {
     }
   };
 
-  //TODO: setを一つだけ使おう
   const pushPenBody = () => {
     // 最後の本体を消す
-    const findDeadBody = bodyStage.findIndex(i => i.b === 4);
-    if (findDeadBody !== -1) bodyStage.splice(findDeadBody, 1);
+    const killDeadBodyArray = bodyStage.filter(i => i.b !== 4);
+    //if (findDeadBody !== -1) bodyStage.splice(findDeadBody, 1);
     // 本体を進める
-    setBodyStage(
-      bodyStage.map(i => {
-        return { b: i.b += 1, f: i.f };
-      })
-    );
+    const pushedBodyArray = killDeadBodyArray.map(i => {
+      return { b: i.b += 1, f: i.f };
+    });
     //新しい本体を持ってくる
-    setBodyStage([...bodyStage, { b: 0, f: Math.random() >= 0.4 }]);
+    pushedBodyArray.push({ b: 0, f: Math.random() >= 0.4 });
+    setBodyStage(pushedBodyArray);
   };
 
   const pushPenCap = () => {
