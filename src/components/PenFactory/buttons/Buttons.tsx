@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import "./Buttons.scss";
 
 const styles = () => ({
   width: "100%",
@@ -33,7 +34,7 @@ type props = {
 //TODO: SCSSでリファクタ
 const Buttons: React.FC<props> = ({ isEnoughMoney, buttonMethods, costs }) => {
   return (
-    <section style={styles()}>
+    <section className="controls" style={styles()}>
       <Button
         variant="contained"
         color={isEnoughMoney.unitPrice ? "primary" : "default"}

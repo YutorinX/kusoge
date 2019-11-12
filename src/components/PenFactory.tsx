@@ -3,7 +3,7 @@ import Status from "./PenFactory/status/Status";
 import PenBody from "./PenFactory/pen/PenBody";
 import PenCap from "./PenFactory/pen/PenCap";
 import Counter from "./PenFactory/Counter";
-import Buttons from "./PenFactory/Buttons";
+import Buttons from "./PenFactory/buttons/Buttons";
 import ControlButtons from "./PenFactory/ControlButtons";
 
 // TODO: 効果音、エフェクト関連（ボーナス、加算、ゲームオーバー）

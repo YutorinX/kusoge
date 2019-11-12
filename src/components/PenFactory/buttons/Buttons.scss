@@ -1,0 +1,11 @@
+.controls {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  top: 1em;
+  bottom: 1em;
+  > button {
+    width: 20%;
+  }
+}
