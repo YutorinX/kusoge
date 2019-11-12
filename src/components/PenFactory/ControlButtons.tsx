@@ -28,7 +28,7 @@ const ControlButtons: React.FC<ControlButtonProps> = ({ buttons }) => {
         ← <br /> SPACE
       </Button>
       <Button variant="contained" color="primary" onClick={buttons.Flip}>
-        ←→ <br /> ←→
+        ←→ <br /> ←
       </Button>
       <Button variant="contained" color="primary" onClick={buttons.Cap}>
         ↓ <br /> ↓
