@@ -34,6 +34,16 @@ const PenFactory: React.FC = () => {
     life: 50
   };
 
+  const initGame = () => {
+    setBodyStage([{ b: 0, f: false }, { b: 1, f: false }, { b: 2, f: false }]);
+    setCapStage([0]);
+    setCount(0);
+    setMoney(0);
+    setLife(3);
+    setUnitPrice(1);
+    setBonusRate(1);
+  };
+
   const handleKeyDown = (e: any) => {
     if (e.key === " ") {
       handleLanePush();
@@ -87,6 +97,7 @@ const PenFactory: React.FC = () => {
   const handleLanePush = () => {
     if (lives <= 0) {
       console.log("GAME OVER");
+      initGame();
       return;
     }
     validatePen();
